@@ -11,7 +11,7 @@ package dynamicProgramming;
  * will be O(n * 2^m). Note that it takes O(n) time to check if a subsequence of string s matches
  * in as a subsequence in string t.
  *
- * this dp solution has time complexity O(n*m) and space complexity O(n * m)
+ * DP solution has time complexity O(n*m) and space complexity O(n * m) (uses substring memoization)
  */
 public class LongestCommonSubsequence {
 

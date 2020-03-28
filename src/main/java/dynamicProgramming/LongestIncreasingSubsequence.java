@@ -6,7 +6,7 @@ package dynamicProgramming;
  * increasing order. For example, the length of LIS for {10, 22, 9, 33, 21, 50, 41, 60, 80}
  * is 6 and LIS is {10, 22, 33, 50, 60, 80}.
  *
- * The dp solution has time complexity O(n^2) and space complexity O(n)
+ * DP solution has time complexity O(n^2) and space complexity O(n) (uses prefix memoization)
  */
 public class LongestIncreasingSubsequence {
 

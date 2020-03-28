@@ -10,7 +10,7 @@ import java.util.Arrays;
  *
  * Find minimum number of edits (operations) required to convert str1 into str2.
  *
- * DP with substring memoization
+ * DP has time complexity O(n * m) and space complexity O(n * m) (uses substring memoization)
  */
 public class EditDistance {
     static final int INSERT = 0, DELETE = 1, REPLACE = 2, MATCH = 3;

@@ -6,7 +6,7 @@ package dynamicProgramming;
  * Output: Partition S into k or fewer ranges, to minimize the maximum sum over all
  * the ranges, without reordering any of the numbers.
  *
- * Time complexity O(k* n^2) and space complexity O(n * k)
+ * Time complexity O(k* n^2) and space complexity O(n * k) (uses substring memoization)
  */
 public class Partitioning {
 

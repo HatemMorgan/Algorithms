@@ -47,7 +47,7 @@ public class TopologicalSorting {
     }
 
     private void processEdge(DirectedGraph graph, int u, int v) {
-        if (graph.state[v] == DISCOVERED && graph.parent[u] != v) { // back edge
+        if (graph.state[v] == DISCOVERED) { // back edge (v is visited before and not fully processed)
             throw new IllegalStateException("The graph is not DAG, cycle is found at edge ("
                     + u + ", " + v + ")");
         }

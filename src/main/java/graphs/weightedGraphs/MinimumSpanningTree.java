@@ -1,9 +1,6 @@
 package graphs.weightedGraphs;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * A spanning tree of a graph G = (V, E) is a subset of edges from E forming a
@@ -129,7 +126,6 @@ public class MinimumSpanningTree {
         public boolean unionSets(int s1, int s2){
             int root1 = find(s1);
             int root2 = find(s2);
-
             if(root1 == root2)
                 return false;
 

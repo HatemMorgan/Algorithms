@@ -1,4 +1,4 @@
-package dataStructures.trees;
+package dataStructures;
 
 class Node<T extends Comparable> {
     T key;

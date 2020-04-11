@@ -1,8 +1,7 @@
 package graphs.weightedGraphs;
 
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.TreeSet;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class ShortestPath {
     static class Edge{
@@ -101,54 +100,40 @@ public class ShortestPath {
         return parent;
     }
 
-    private static class Node{
+    private static class Node implements Comparable<Node>{
         int id, cost;
         public Node(int id, int cost){
             this.id = id;
             this.cost = cost;
         }
+
+        public int compareTo(Node n){
+            return this.cost - n.cost;
+        }
     }
 
     /**
-     * Time Complexity:
-     * Total vertices: V, Total Edges: E
-     *
-     * O(logV) – to extract each vertex from queue. So for V vertices – O(VlogV) (outer loop)
-     * O(logV) – each time we encounter a new edge and we will do an update (remove-> update cost -> insert).
-     *           So for total E edge – O(ElogV) (inner loop)
-     *
-     * So over all complexity: O(VlogV) + O(ElogV) = O((E+V)logV) = O(ElogV) (E >> V)
+     * Time Complexity: E log E
      */
     private static int[] optimizedDijkstraALg(LinkedList<Edge>[] adjList, int start){
-        int[] distance = new int[adjList.length];
-        int[] parent = new int[adjList.length];
-        boolean[] inTree = new boolean[adjList.length];
-        Node[] nodes = new Node[adjList.length];
+        int V = adjList.length;
+        int[] distance = new int[V];
+        int[] parent = new int[V];
+        boolean[] inTree = new boolean[V];
 
-        Comparator<Node> cmp = new Comparator<Node>(){
-            public int compare(Node a, Node b){
-                return a.cost - b.cost;
-            }
-        };
-
-        TreeSet<Node> pq = new TreeSet<Node>(cmp);
+        PriorityQueue<Node> pq = new PriorityQueue<>();
 
         final int INF = (int) 1e7;
-        for(int u=0; u<adjList.length; ++u) {
-            nodes[u] = new Node(u, INF);
-            distance[u] = INF;
-        }
+        Arrays.fill(distance, INF);
 
-        nodes[start].cost = 0;
         distance[start] = 0;
         parent[start] = -1;
 
-        for(Node u: nodes)
-            pq.add(u);
+        pq.add(new Node(start, 0));
 
         while(!pq.isEmpty()){
-            Node u = pq.pollFirst(); // poll node with lowest cost
-            if(inTree[u.id])
+            Node u = pq.poll(); // poll node with lowest cost
+            if(inTree[u.id]) // Node is visited, skip
                 continue;
 
             inTree[u.id] = true;
@@ -157,9 +142,7 @@ public class ShortestPath {
                 if(!inTree[e.v] && distance[e.v] > distance[e.u] + e.weight){
                     parent[e.v] = e.u;
                     distance[e.v] = distance[e.u] + e.weight;
-                    pq.remove(nodes[e.v]);
-                    nodes[e.v].cost = distance[e.v];
-                    pq.add(nodes[e.v]);
+                    pq.add(new Node(e.v, distance[e.v]));
                }
             }
         }
@@ -256,7 +239,7 @@ public class ShortestPath {
 
         System.out.println("\n =====  Floyd's Algorithm ====== ");
 
-        floydAlg(adjMatrix);
+//        floydAlg(adjMatrix);
 
     }
 

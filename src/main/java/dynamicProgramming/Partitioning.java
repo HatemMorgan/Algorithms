@@ -1,5 +1,10 @@
 package dynamicProgramming;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  * Problem: Integer Partition without Rearrangement
  * Input: An arrangement S of nonnegative numbers {s1, . . . , sn} and an integer k.
@@ -33,7 +38,7 @@ public class Partitioning {
     public static void partition(int[] nums, int k){
         int n = nums.length;
         // dp[i][k] hold the minimum partition cost (largest sum of elements in a partition)
-        // of all possible partitions of nums[0,...,i] into j partitions
+        // of all possible partitions of nums[0,...,i] into k partitions
         int[][] dp = new int[n + 1][k + 1];
 
         // parent[i][j] hold a pointer previous state. Used to construct path to solution

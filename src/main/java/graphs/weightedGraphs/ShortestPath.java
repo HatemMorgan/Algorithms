@@ -108,41 +108,52 @@ public class ShortestPath {
         }
 
         public int compareTo(Node n){
+            if(this.cost == n.cost)
+                return this.id - n.id;
+
             return this.cost - n.cost;
         }
     }
 
     /**
-     * Time Complexity: E log E
+     * Time Complexity: V  + E log V
      */
     private static int[] optimizedDijkstraALg(LinkedList<Edge>[] adjList, int start){
         int V = adjList.length;
         int[] distance = new int[V];
         int[] parent = new int[V];
+        Node[] nodes = new Node[V];
         boolean[] inTree = new boolean[V];
 
-        PriorityQueue<Node> pq = new PriorityQueue<>();
+        TreeSet<Node> pq = new TreeSet<>();
 
         final int INF = (int) 1e7;
-        Arrays.fill(distance, INF);
+        for(int i=0; i<V; ++i) {
+            nodes[i] = new Node(i, INF);
+            distance[i] = INF;
+        }
 
         distance[start] = 0;
         parent[start] = -1;
+        nodes[start].cost = 0;
 
-        pq.add(new Node(start, 0));
+        for(int i=0; i<V; ++i)
+            pq.add(nodes[i]);
 
         while(!pq.isEmpty()){
-            Node u = pq.poll(); // poll node with lowest cost
-            if(inTree[u.id]) // Node is visited, skip
-                continue;
-
+            Node u = pq.pollFirst(); // poll node with lowest cost
             inTree[u.id] = true;
 
             for(Edge e: adjList[u.id]){
                 if(!inTree[e.v] && distance[e.v] > distance[e.u] + e.weight){
                     parent[e.v] = e.u;
                     distance[e.v] = distance[e.u] + e.weight;
-                    pq.add(new Node(e.v, distance[e.v]));
+
+                    // update treeSet
+                    Node n = nodes[e.v];
+                    pq.remove(n); // O(log V)
+                    n.cost = distance[e.v];
+                    pq.add(n); // O(log V)
                }
             }
         }

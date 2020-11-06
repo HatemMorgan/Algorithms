@@ -69,9 +69,9 @@ public class EditDistance {
                 }else {
                     int[] opt = new int[3];
 
-                    // insert ith character in s to jth position in t
+                    // insert jth character of t to s (in the i+1 index).
                     opt[INSERT] = (j - 1 >= 0)? memo[i][j - 1] + cost[INSERT] : cost[INSERT];
-                    // delete jth character in t
+                    // delete ith character of s
                     opt[DELETE] = (i - 1 >= 0)? memo[i - 1][j] + cost[DELETE] : cost[DELETE];
                     // Replace jth character in t by ith character in s
                     opt[REPLACE] = (i -1 >=0 && j-1>=0)? memo[i - 1][j - 1] + cost[REPLACE]: cost[REPLACE];
